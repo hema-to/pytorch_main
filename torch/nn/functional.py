@@ -55,9 +55,7 @@ Note:
 
 Note:
     This operator supports complex data types i.e. ``complex32, complex64, complex128``.
-""".format(
-        **reproducibility_notes, **tf32_notes
-    )
+""".format(**reproducibility_notes, **tf32_notes)
     + r"""
 
 Args:
@@ -106,9 +104,7 @@ Note:
 
 Note:
     This operator supports complex data types i.e. ``complex32, complex64, complex128``.
-""".format(
-        **reproducibility_notes, **tf32_notes
-    )
+""".format(**reproducibility_notes, **tf32_notes)
     + r"""
 
 Args:
@@ -159,9 +155,7 @@ Note:
 
 Note:
     This operator supports complex data types i.e. ``complex32, complex64, complex128``.
-""".format(
-        **reproducibility_notes, **tf32_notes
-    )
+""".format(**reproducibility_notes, **tf32_notes)
     + r"""
 
 Args:
@@ -208,9 +202,7 @@ See :class:`~torch.nn.ConvTranspose1d` for details and output shape.
 
 Note:
     {cudnn_reproducibility_note}
-""".format(
-        **reproducibility_notes, **tf32_notes
-    )
+""".format(**reproducibility_notes, **tf32_notes)
     + r"""
 
 Args:
@@ -251,9 +243,7 @@ See :class:`~torch.nn.ConvTranspose2d` for details and output shape.
 
 Note:
     {cudnn_reproducibility_note}
-""".format(
-        **reproducibility_notes, **tf32_notes
-    )
+""".format(**reproducibility_notes, **tf32_notes)
     + r"""
 
 Args:
@@ -296,9 +286,7 @@ See :class:`~torch.nn.ConvTranspose3d` for details and output shape.
 
 Note:
     {cudnn_reproducibility_note}
-""".format(
-        **reproducibility_notes, **tf32_notes
-    )
+""".format(**reproducibility_notes, **tf32_notes)
     + r"""
 
 Args:
@@ -2326,9 +2314,7 @@ Shape:
     - Weight: :math:`(out\_features, in\_features)` or :math:`(in\_features)`
     - Bias: :math:`(out\_features)` or :math:`()`
     - Output: :math:`(*, out\_features)` or :math:`(*)`, based on the shape of the weight
-""".format(
-        **sparse_support_notes
-    ),
+""".format(**sparse_support_notes),
 )
 
 
@@ -5819,9 +5805,7 @@ scaled_dot_product_attention = _add_docstr(
     Note:
 
         {cudnn_reproducibility_note}
-    """.format(
-        **reproducibility_notes
-    )
+    """.format(**reproducibility_notes)
     + r"""
     Args:
         query (Tensor): Query tensor; shape :math:`(N, ..., Hq, L, E)`.
@@ -6295,7 +6279,7 @@ def multi_head_attention_forward(
     #
     q = q.view(tgt_len, bsz * num_heads, head_dim).transpose(0, 1)
     if static_k is None:
-        k = k.view(k.shape[0], bsz * num_heads, head_dim).transpose(0, 1)
+        k = k.view(src_len, bsz * num_heads, head_dim).transpose(0, 1)
     else:
         # TODO finish disentangling control flow so we don't do in-projections when statics are passed
         assert (
@@ -6306,7 +6290,7 @@ def multi_head_attention_forward(
         ), f"expecting static_k.size(2) of {head_dim}, but got {static_k.size(2)}"
         k = static_k
     if static_v is None:
-        v = v.view(v.shape[0], bsz * num_heads, head_dim).transpose(0, 1)
+        v = v.view(src_len, bsz * num_heads, head_dim).transpose(0, 1)
     else:
         # TODO finish disentangling control flow so we don't do in-projections when statics are passed
         assert (
